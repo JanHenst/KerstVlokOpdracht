@@ -1,3 +1,5 @@
+let midden = document.getElementById('midden');
+
 let codeSVGvlok = '<svg version="1.1" class="vlokje" xmlns="http://www.w3.org/2000/svg" ' +
     'xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"  ' +
     'viewBox="0 0 480 480" xml:space="preserve"> ' +
@@ -106,4 +108,58 @@ let codeSVGvlok = '<svg version="1.1" class="vlokje" xmlns="http://www.w3.org/20
    ' <polygon  class=ster  points="238.9,159.9 268.5,144.8 262.5,177.4 286,200.9 253.1,205.3 238,234.9 223.7,204.9 190.9,199.7 214.9,176.8 209.8,144 "/> '+
    ' </svg>';
 
-   document.getElementById('sneeuwvlok').innerHTML = codeSVGvlok;
+   class Vlokje {
+     constructor(horizontale, verticale, valsnelheid, grootte, draaisnelheid) {
+       this._grootte = grootte;
+       this._horizontale = horizontale + midden.offsetLeft;
+       this._verticale = verticale + midden.offsetTop;
+       this._valsnelheid = valsnelheid * grootte;
+       this._draaisnelheid = draaisnelheid;
+       this._hoek = 0;
+       this._vlokje;
+   }
+
+   maken() {
+       this._vlokje = document.createElement('div');
+       this._vlokje.className = 'sneeuwvlokje';
+       this._vlokje.style.top  = this._verticale + 'px';
+       this._vlokje.style.height = 3 * this._grootte + 'em';
+       this._vlokje.style.width = 3 * this._grootte + 'em';
+       this._vlokje.style.left = this._horizontale + 'px';
+       this._vlokje.innerHTML = this._svg;
+       midden.appendChild(this._vlokje);
+       this._vlokje.innerHTML = codeSVGvlok;
+       this.bewegen();
+   }
+
+   vallen() {
+       this._verticale += this._valsnelheid;
+       this._vlokje.style.left = this._horizontale + 'px';
+       this._vlokje.style.top = this._verticale + 'px';
+       this._hoek += this._draaisnelheid;
+       this._vlokje.style.transform = "rotate(" + this._hoek + "deg)";
+   }
+      // rijden is een method om continue te verplaatsen
+      bewegen() {
+         let bewegen = requestAnimationFrame( () => {
+           if(this._verticale > midden.offsetHeight + midden.offsetTop - 60){
+               this._verticale = midden.offsetTop;
+               this._horizontale = (Math.random()*midden.offsetWidth) + midden.offsetLeft;
+               this.vallen();
+               this.bewegen();
+           } else {
+               this.vallen();
+               this.bewegen();
+           }
+         });
+      }
+   }
+
+   for(let i=0; i<15; ){
+     let number = Math.random() * 4;
+     if(number > 1){
+         window['vlokje'+i] = new Vlokje(Math.random()*midden.offsetWidth, 0, 1.5, number, Math.random() * 2);
+         window['vlokje'+i].maken();
+         i++;
+     }
+ }

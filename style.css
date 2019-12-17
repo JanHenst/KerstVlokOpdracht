@@ -1,6 +1,14 @@
 body {
   height: 100vh;
   margin: 0;
+  background-color: white;
+  font-family: 'Lakki Reddy', cursive;
+}
+
+h2 {
+  color: white;
+  font-size: 5em;
+  padding-left: .5em;
 }
 
 .midden {
@@ -9,14 +17,21 @@ body {
   width:  70em;
   height: 50em;
   background-color: red;
-}
-#sneeuwvlok {
-  height: 10vh;
-  stroke-width: 3px;
-  stroke: white;
-  fill: none;
+  background-image: url('SnowBackground.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 20px;
 }
 
 svg {
- height: 250px;
+ height: 100px;
+}
+
+.sneeuwvlokje {
+   width: 2em;
+   height: 1.5em;
+   position: absolute;
+   stroke-width: 3px;
+   stroke: white;
+   fill: none;
 }
