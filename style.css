@@ -1,0 +1,22 @@
+body {
+  height: 100vh;
+  margin: 0;
+}
+
+.midden {
+  margin: 0 auto;
+  margin-top: 5em;
+  width:  70em;
+  height: 50em;
+  background-color: red;
+}
+#sneeuwvlok {
+  height: 10vh;
+  stroke-width: 3px;
+  stroke: white;
+  fill: none;
+}
+
+svg {
+ height: 250px;
+}
